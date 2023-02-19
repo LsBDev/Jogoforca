@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+.jogo {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 30px;
+  padding-left: 40px;
+}
+ img {
+  width: 400px;
+  height: 470px;
+  margin-left: 100px;
+ }
+.iniciar {
+  width: 200px;
+  height: 60px;
+  margin-top: -95px;
+  margin-left: 333px;
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  font-family: "Roboto";
+  color: white;
+  border: none;
+  background: #27AE60;
+}
+.palavras {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+.palavra {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 50px;
+  margin-bottom: -50px;
+  color: #FF0000;
+}
