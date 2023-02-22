@@ -9,13 +9,17 @@ import "./jogo.css"
 import forca6 from "./assets/imagens/forca6.png";
 import { useState } from "react";
 
-export default function Jogo() {
+export default function Jogo({wordGame}) {
   const [disabled, setDisabled] = useState(true);
+  const [errorCount, setErrorCount] = useState();
 
   function iniciar() {
     setDisabled(false);
-    console.log('fui clicado!')
+    setErrorCount(0)
   }
+
+ const chosenWord = wordGame.split("");
+
   
   return (
     <>
@@ -23,11 +27,13 @@ export default function Jogo() {
         <img src={forca6} alt="forca" />
         <div className="palavras">
           <button className="iniciar" onClick={iniciar}>Escolher Palavra</button>
-          <h1 className="palavra">quarentena</h1>
+          <div className="adivinhar">
+            {chosenWord.map((letter, index) => (<h1 key={index} className="palavra"> _ </h1>))}
+          </div>          
         </div>
       </div>
 
-      <Letras disabled={disabled}/>
+      <Letras error={errorCount} setDisabled={setDisabled} disabled={disabled}/>
     </>
     
   )
