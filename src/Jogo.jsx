@@ -39,7 +39,6 @@ export default function Jogo({wordGame}) {
     { id: 25, letra: 'z', isEnabled: false }
   ])
   const [errorCount, setErrorCount] = useState(0)
-  const [forca, setForca] = useState(forca0)
   const forcaImagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6] 
   const chosenWord = wordGame.split("")
   const [secretWord, setSecretWord] = useState(chosenWord.map((letter) => ('_')))
@@ -52,7 +51,7 @@ export default function Jogo({wordGame}) {
   return (
     <>
       <div className="jogo">
-        <img src={forca} alt="forca" />
+        <img src={forcaImagens[errorCount]} alt="forca" />
         <div className="palavras">
           <button className="iniciar" onClick={iniciar}>Escolher Palavra</button>
           <div className="adivinhar">
@@ -67,10 +66,7 @@ export default function Jogo({wordGame}) {
       letterArray={letterArray} 
       setLetterArray={setLetterArray} 
       chosenWord={chosenWord} 
-      secretWord={secretWord}
       setSecretWord={setSecretWord}
-      forcaImagens={forcaImagens}
-      setForca={setForca}
       />
     </>
     

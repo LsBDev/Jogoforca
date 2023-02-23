@@ -1,9 +1,8 @@
 // import { useState } from "react";
 import "./letras.css"
 
-export default function Letras ({letterArray, errorCount,  setErrorCount, setLetterArray, chosenWord,  secretWord, setSecretWord, forcaImagens, setForca}) {
+export default function Letras ({letterArray, errorCount,  setErrorCount, setLetterArray, chosenWord, setSecretWord}) {
   // const array = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; 
-  setForca(forcaImagens[errorCount])
   function clickLetter(letter) {
     setLetterArray((prevArray) => prevArray.map(object => {
       if(object.id === letter.id) {
