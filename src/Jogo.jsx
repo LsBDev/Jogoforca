@@ -10,6 +10,7 @@ import forca6 from "./assets/imagens/forca6.png";
 import { useState } from "react";
 
 export default function Jogo({wordGame}) {
+  const game = {WON: 0, LOST: 1, CONTINUE: 2, NOT_STARTED: 3}
   const [letterArray, setLetterArray] = useState([
     { id: 0, letra: 'a', isEnabled: false },
     { id: 1, letra: 'b', isEnabled: false },
@@ -38,35 +39,45 @@ export default function Jogo({wordGame}) {
     { id: 24, letra: 'y', isEnabled: false },
     { id: 25, letra: 'z', isEnabled: false }
   ])
-  const [errorCount, setErrorCount] = useState(0)
+  // const [errorCount, setErrorCount] = useState(0)
   const forcaImagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6] 
   const chosenWord = wordGame.split("")
   const [secretWord, setSecretWord] = useState(chosenWord.map((letter) => ('_')))
+  const [gameState, setGameState] = useState({game: game.NOT_STARTED, errorCount: 0})
 
   function iniciar() {
     setLetterArray((prevArray) => prevArray.map((object) => ({...object, isEnabled: true})))
-    setErrorCount(0)
+    // setErrorCount(0)
+    setGameState((prevObject) => ({...prevObject, game: game.CONTINUE}))
   }
+
+  console.log(gameState);
   
   return (
     <>
       <div className="jogo">
-        <img src={forcaImagens[errorCount]} alt="forca" />
+        <img src={forcaImagens[gameState.errorCount]} alt="forca" />
         <div className="palavras">
           <button className="iniciar" onClick={iniciar}>Escolher Palavra</button>
           <div className="adivinhar">
-            {secretWord.map((letter, index) => (<h1 key={index} className="palavra">{letter}</h1>))}
+            {secretWord.map((letter, index) => (<h1 
+            key={index} 
+            className={`palavra ${gameState.game === game.LOST ? 'red' : ''} ${gameState.game === game.WON ? 'green' : ''}`}>{letter}</h1>))}
           </div>
         </div>
       </div>
-      
+
       <Letras 
-      errorCount={errorCount}  
-      setErrorCount={setErrorCount} 
+      // errorCount={errorCount}  
+      // setErrorCount={setErrorCount} 
       letterArray={letterArray} 
       setLetterArray={setLetterArray} 
       chosenWord={chosenWord} 
+      secretWord={secretWord}
       setSecretWord={setSecretWord}
+      gameState={gameState}
+      setGameState={setGameState}
+      game={game}
       />
     </>
     
