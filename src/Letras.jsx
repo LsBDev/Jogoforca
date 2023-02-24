@@ -76,6 +76,7 @@ export default function Letras({
     <div className="letras">
       {letterArray.map((l) => (
         <button
+          data-test="letter"
           key={l.id}
           onClick={() => clickLetter(l)}
           className={`letra ${l.isEnabled ? "enabled" : "disabled"}`}
@@ -87,3 +88,4 @@ export default function Letras({
     </div>
   );
 }
+ 
