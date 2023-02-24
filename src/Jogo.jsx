@@ -62,17 +62,18 @@ export default function Jogo() {
   return (
     <>
       <div className="jogo">
-        <img src={forcaImagens[gameState.errorCount]} alt="forca" />
+        <img data-test="game-image" src={forcaImagens[gameState.errorCount]} alt="forca" />
         <div className="palavras">
-          <button className="iniciar" disabled={gameState.game === game.CONTINUE ? true : false} onClick={iniciar}>Escolher Palavra</button>
+          <button data-test="choose-word" className="iniciar" disabled={gameState.game === game.CONTINUE ? true : false} onClick={iniciar}>Escolher Palavra</button>
           <div className="adivinhar">
-            {secretWord.map((letter, index) => (<h1 
+            {secretWord.map((letter, index) => (<h1
+            data-test="word"
             key={index} 
             className={`palavra ${gameState.game === game.LOST ? 'red' : ''} ${gameState.game === game.WON ? 'green' : ''}`}>{letter}</h1>))}
           </div>
         </div>
       </div>
-
+      
       <Letras 
       // errorCount={errorCount}  
       // setErrorCount={setErrorCount} 
