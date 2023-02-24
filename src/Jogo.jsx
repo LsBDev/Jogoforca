@@ -1,4 +1,5 @@
 import Letras from "./Letras";
+import palavras from "./palavras";
 import "./jogo.css"
 import forca0 from "./assets/imagens/forca0.png";
 import forca1 from "./assets/imagens/forca1.png";
@@ -9,7 +10,7 @@ import forca5 from "./assets/imagens/forca5.png";
 import forca6 from "./assets/imagens/forca6.png";
 import { useState } from "react";
 
-export default function Jogo({wordGame}) {
+export default function Jogo() {
   const game = {WON: 0, LOST: 1, CONTINUE: 2, NOT_STARTED: 3}
   const [letterArray, setLetterArray] = useState([
     { id: 0, letra: 'a', isEnabled: false },
@@ -41,14 +42,19 @@ export default function Jogo({wordGame}) {
   ])
   // const [errorCount, setErrorCount] = useState(0)
   const forcaImagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6] 
-  const chosenWord = wordGame.split("")
-  const [secretWord, setSecretWord] = useState(chosenWord.map((letter) => ('_')))
   const [gameState, setGameState] = useState({game: game.NOT_STARTED, errorCount: 0})
+  // const chosenWord = palavras[Math.floor(Math.random()*palavras.length)].split("")
+  const [raffle, setRaffle] = useState([])
+  const [secretWord, setSecretWord] = useState([])
 
   function iniciar() {
+    const raffleWord = palavras[Math.floor(Math.random()*palavras.length)].split("")
+    setRaffle(raffleWord)
+    setSecretWord(raffleWord.map((char) => ('_')))
     setLetterArray((prevArray) => prevArray.map((object) => ({...object, isEnabled: true})))
+    setGameState((prevObject) => ({...prevObject, game: game.CONTINUE, errorCount: 0}))
+    
     // setErrorCount(0)
-    setGameState((prevObject) => ({...prevObject, game: game.CONTINUE}))
   }
 
   console.log(gameState);
@@ -58,7 +64,7 @@ export default function Jogo({wordGame}) {
       <div className="jogo">
         <img src={forcaImagens[gameState.errorCount]} alt="forca" />
         <div className="palavras">
-          <button className="iniciar" onClick={iniciar}>Escolher Palavra</button>
+          <button className="iniciar" disabled={gameState.game === game.CONTINUE ? true : false} onClick={iniciar}>Escolher Palavra</button>
           <div className="adivinhar">
             {secretWord.map((letter, index) => (<h1 
             key={index} 
@@ -72,7 +78,7 @@ export default function Jogo({wordGame}) {
       // setErrorCount={setErrorCount} 
       letterArray={letterArray} 
       setLetterArray={setLetterArray} 
-      chosenWord={chosenWord} 
+      chosenWord={raffle}
       secretWord={secretWord}
       setSecretWord={setSecretWord}
       gameState={gameState}
