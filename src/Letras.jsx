@@ -22,7 +22,7 @@ export default function Letras({
 
     setLetterArray((prevArray) =>
       prevArray.map((object) => {
-        if (object.id === letter.id) {
+        if (object.letra === letter.letra) {
           object.isEnabled = false;
           return object;
         } else {
@@ -67,17 +67,17 @@ export default function Letras({
         prevArray.map((object) => ({ ...object, isEnabled: false }))
       )
     }
-    console.log(secretWord.toString())
-    console.log(chosenWord.toString())
+    // console.log(secretWord.toString())
+    // console.log(chosenWord.toString())
   } 
 
 
   return (
     <div className="letras">
-      {letterArray.map((l) => (
+      {letterArray.map((l, index) => (
         <button
           data-test="letter"
-          key={l.id}
+          key={index}
           onClick={() => clickLetter(l)}
           className={`letra ${l.isEnabled ? "enabled" : "disabled"}`}
           disabled={l.isEnabled ? false : true}
