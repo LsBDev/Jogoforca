@@ -76,10 +76,9 @@ export default function Jogo() {
           >
             Escolher Palavra
           </button>
-          <div className="adivinhar">
+          <div data-test="word" className="adivinhar">
             {secretWord.split('').map((letter, index) => (
-              <h1
-                data-test="word"
+              <h1                
                 key={index}
                 className={`palavra ${
                   gameState === game.LOST ? "red" : ""
