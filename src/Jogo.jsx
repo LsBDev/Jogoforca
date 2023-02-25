@@ -76,13 +76,13 @@ export default function Jogo() {
           >
             Escolher Palavra
           </button>
-          <div data-test="word" className="adivinhar">
+          <div data-test="word" className={`palavra adivinhar ${
+                  gameState === game.LOST ? "red" : ""
+                } ${gameState === game.WON ? "green" : ""}`}>
             {secretWord.split('').map((letter, index) => (
               <h1                
                 key={index}
-                className={`palavra ${
-                  gameState === game.LOST ? "red" : ""
-                } ${gameState === game.WON ? "green" : ""}`}
+                
               >
                 {letter}
               </h1>
