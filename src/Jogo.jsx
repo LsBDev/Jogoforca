@@ -43,14 +43,14 @@ export default function Jogo() {
   const [errorCount, setErrorCount] = useState(0)
   const forcaImagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
   const [gameState, setGameState] = useState(game.NOT_STARTED);
-  const [raffle, setRaffle] = useState([]);
-  const [secretWord, setSecretWord] = useState([]);
+  const [raffle, setRaffle] = useState('');
+  const [secretWord, setSecretWord] = useState('');
 
   function iniciar() {
     const raffleWord =
-      palavras[Math.floor(Math.random() * palavras.length)].split("");
+      palavras[Math.floor(Math.random() * palavras.length)];
     setRaffle(raffleWord);
-    setSecretWord(raffleWord.map((char) => "_"));
+    setSecretWord(raffleWord.split("").map((char) => "_").join(''));
     setLetterArray((prevArray) =>
       prevArray.map((object) => ({ ...object, isEnabled: true }))
     );
@@ -58,7 +58,7 @@ export default function Jogo() {
     setErrorCount(0)
   }
 
-
+// console.log(secretWord.split('').map((index) => index).join(''))
   return (
     <>
       <div className="jogo">
@@ -76,14 +76,13 @@ export default function Jogo() {
           >
             Escolher Palavra
           </button>
-          <div className="adivinhar">
-            {secretWord.map((letter, index) => (
-              <h1
-                data-test="word"
-                key={index}
-                className={`palavra ${
+          <div data-test="word" className={`palavra adivinhar ${
                   gameState === game.LOST ? "red" : ""
-                } ${gameState === game.WON ? "green" : ""}`}
+                } ${gameState === game.WON ? "green" : ""}`}>
+            {secretWord.split('').map((letter, index) => (
+              <h1                
+                key={index}
+                
               >
                 {letter}
               </h1>
