@@ -15,7 +15,7 @@ export default function Letras({
   // const array = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   function clickLetter(letter) {
     let newErrorCount = errorCount
-    let newSecretWord = [...secretWord]
+    let newSecretWord = secretWord
 
 
     setLetterArray((prevArray) =>
@@ -29,22 +29,16 @@ export default function Letras({
       })
     );
 
-
+    
     if (chosenWord.includes(letter.letra)) {
-      for(let i = 0; i < chosenWord.length; i++) {
+      const tempWord = newSecretWord.split('')
+      for(let i = 0; i < tempWord.length; i++) {
         if(chosenWord[i] === letter.letra) {
-          newSecretWord[i] = letter.letra
+          tempWord[i] = letter.letra
         }
       }
-      setSecretWord((prevArray) => {
-        const newArray = [...prevArray];
-        for (let i = 0; i < chosenWord.length; i++) {
-          if (chosenWord[i] === letter.letra) {
-            newArray[i] = letter.letra;
-          }
-        }
-        return newArray;
-      });
+      newSecretWord = tempWord.join('')
+      setSecretWord(newSecretWord)
     } else {
       newErrorCount++
       setErrorCount(errorCount + 1);
@@ -57,7 +51,7 @@ export default function Letras({
       setLetterArray((prevArray) =>
         prevArray.map((object) => ({ ...object, isEnabled: false }))
       )
-    } else if (chosenWord.toString() === newSecretWord.toString()) {
+    } else if (chosenWord === newSecretWord) {
       setGameState(game.WON)
       setLetterArray((prevArray) =>
         prevArray.map((object) => ({ ...object, isEnabled: false }))
