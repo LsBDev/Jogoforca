@@ -40,13 +40,9 @@ export default function Jogo() {
     { letra: "y", isEnabled: false },
     { letra: "z", isEnabled: false },
   ]);
-  // const [errorCount, setErrorCount] = useState(0)
+  const [errorCount, setErrorCount] = useState(0)
   const forcaImagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
-  const [gameState, setGameState] = useState({
-    game: game.NOT_STARTED,
-    errorCount: 0,
-  });
-  // const chosenWord = palavras[Math.floor(Math.random()*palavras.length)].split("")
+  const [gameState, setGameState] = useState(game.NOT_STARTED);
   const [raffle, setRaffle] = useState([]);
   const [secretWord, setSecretWord] = useState([]);
 
@@ -58,30 +54,24 @@ export default function Jogo() {
     setLetterArray((prevArray) =>
       prevArray.map((object) => ({ ...object, isEnabled: true }))
     );
-    setGameState((prevObject) => ({
-      ...prevObject,
-      game: game.STARTED,
-      errorCount: 0,
-    }));
-
-    // setErrorCount(0)
+    setGameState(game.STARTED);
+    setErrorCount(0)
   }
 
-  console.log(gameState);
 
   return (
     <>
       <div className="jogo">
         <img
           data-test="game-image"
-          src={forcaImagens[gameState.errorCount]}
+          src={forcaImagens[errorCount]}
           alt="forca"
         />
         <div className="palavras">
           <button
             data-test="choose-word"
             className="iniciar"
-            disabled={gameState.game === game.STARTED ? true : false}
+            disabled={gameState === game.STARTED ? true : false}
             onClick={iniciar}
           >
             Escolher Palavra
@@ -92,8 +82,8 @@ export default function Jogo() {
                 data-test="word"
                 key={index}
                 className={`palavra ${
-                  gameState.game === game.LOST ? "red" : ""
-                } ${gameState.game === game.WON ? "green" : ""}`}
+                  gameState === game.LOST ? "red" : ""
+                } ${gameState === game.WON ? "green" : ""}`}
               >
                 {letter}
               </h1>
@@ -103,8 +93,8 @@ export default function Jogo() {
       </div>
 
       <Letras
-        // errorCount={errorCount}
-        // setErrorCount={setErrorCount}
+        errorCount={errorCount}
+        setErrorCount={setErrorCount}
         letterArray={letterArray}
         setLetterArray={setLetterArray}
         chosenWord={raffle}

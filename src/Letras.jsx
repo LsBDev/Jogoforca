@@ -1,10 +1,9 @@
-// import { useState } from "react";
 import "./letras.css";
 
 export default function Letras({
   letterArray,
-  // errorCount,
-  // setErrorCount,
+  errorCount,
+  setErrorCount,
   setLetterArray,
   chosenWord,
   secretWord,
@@ -15,10 +14,9 @@ export default function Letras({
 }) {
   // const array = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   function clickLetter(letter) {
-    let newErrorCount = gameState.errorCount
+    let newErrorCount = errorCount
     let newSecretWord = [...secretWord]
 
-    console.log(newErrorCount)
 
     setLetterArray((prevArray) =>
       prevArray.map((object) => {
@@ -49,28 +47,23 @@ export default function Letras({
       });
     } else {
       newErrorCount++
-      setGameState((prevObject) => {
-        const newObject = {...prevObject}
-        newObject.errorCount++
-        return newObject
-      });
+      setErrorCount(errorCount + 1);
     }
+
+
     if(newErrorCount >= 6) {
-      gameState.game = game.LOST
+      setGameState(game.LOST)
       setSecretWord(chosenWord);
       setLetterArray((prevArray) =>
         prevArray.map((object) => ({ ...object, isEnabled: false }))
       )
     } else if (chosenWord.toString() === newSecretWord.toString()) {
-      setGameState((prevObject) => ({...prevObject, game: game.WON}) )
+      setGameState(game.WON)
       setLetterArray((prevArray) =>
         prevArray.map((object) => ({ ...object, isEnabled: false }))
       )
     }
-    // console.log(secretWord.toString())
-    // console.log(chosenWord.toString())
-  } 
-
+  }
 
   return (
     <div className="letras">
